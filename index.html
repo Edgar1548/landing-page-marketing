@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Landing Page de Marketing</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111827;
+      --card: rgba(255,255,255,0.08);
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --primary: #f0a519;
+      --primary-dark: #d18c12;
+      --white: #ffffff;
+      --border: rgba(255,255,255,0.14);
+      --shadow: 0 20px 60px rgba(0,0,0,0.28);
+      --radius: 20px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(240,165,25,0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(59,130,246,0.16), transparent 30%),
+        linear-gradient(180deg, #0b1120 0%, #111827 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(100% - 2rem, var(--max));
+      margin: 0 auto;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.95rem 1.4rem;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: 0.25s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #111827;
+      box-shadow: 0 10px 30px rgba(240,165,25,0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border-color: var(--border);
+      color: var(--white);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.06);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(240,165,25,0.12);
+      color: #ffd479;
+      border: 1px solid rgba(240,165,25,0.24);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(11,17,32,0.65);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: 0.2px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), #ffcd6a);
+      color: #111827;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    .hero {
+      padding: 5.5rem 0 4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4.6rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      color: var(--white);
+      margin: 1rem 0 1.2rem;
+      max-width: 11ch;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 60ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin: 1.7rem 0 1.4rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1rem 1.15rem;
+      min-width: 140px;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--white);
+      font-size: 1.25rem;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    .dashboard {
+      background: #0b1220;
+      border-radius: 22px;
+      padding: 1.25rem;
+      overflow: hidden;
+    }
+
+    .dashboard-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .chart {
+      height: 220px;
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(240,165,25,0.22), transparent),
+        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+        #111827;
+      background-size: 100% 100%, 48px 48px, 48px 48px, auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .mini-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+      margin-top: 0.9rem;
+    }
+
+    .mini-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 0.9rem;
+    }
+
+    .mini-card strong {
+      color: var(--white);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .mini-card span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    section {
+      padding: 4.2rem 0;
+    }
+
+    .section-head {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 2.2rem;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .feature-card,
+    .testimonial,
+    .price-card,
+    .cta-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .feature-card {
+      padding: 1.4rem;
+    }
+
+    .feature-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(240,165,25,0.14);
+      border: 1px solid rgba(240,165,25,0.24);
+      color: #ffd479;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      color: var(--white);
+      margin-bottom: 0.55rem;
+      font-size: 1.1rem;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .logos {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.9rem;
+    }
+
+    .logo-item {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1rem;
+      text-align: center;
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .testimonial {
+      padding: 1.4rem;
+    }
+
+    .testimonial p {
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .testimonial small {
+      color: var(--muted);
+    }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .price-card {
+      padding: 1.6rem;
+      position: relative;
+    }
+
+    .price-card.popular {
+      border-color: rgba(240,165,25,0.4);
+      transform: translateY(-6px);
+    }
+
+    .price-tag {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(240,165,25,0.18);
+      color: #ffd479;
+      border: 1px solid rgba(240,165,25,0.3);
+      padding: 0.35rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .price-card h3 {
+      color: var(--white);
+      font-size: 1.25rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .price {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--white);
+      margin: 1rem 0;
+    }
+
+    .price span {
+      font-size: 0.98rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .price-card ul {
+      list-style: none;
+      margin: 1rem 0 1.4rem;
+      color: var(--muted);
+    }
+
+    .price-card li + li {
+      margin-top: 0.55rem;
+    }
+
+    .cta-box {
+      padding: 2rem;
+      text-align: center;
+      background:
+        radial-gradient(circle at center, rgba(240,165,25,0.16), transparent 45%),
+        rgba(255,255,255,0.05);
+    }
+
+    .cta-box h2 {
+      color: var(--white);
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 0.8rem;
+    }
+
+    .cta-box p {
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto 1.4rem;
+    }
+
+    footer {
+      padding: 2rem 0 3rem;
+      color: var(--muted);
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 1.4rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .features,
+      .testimonials,
+      .pricing {
+        grid-template-columns: 1fr;
+      }
+
+      .logos {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .mini-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding-top: 4rem;
+      }
+
+      .hero-actions,
+      .hero-stats,
+      .footer-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .logos {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#" class="brand">
+        <span class="brand-mark">M</span>
+        <span>MarketFlow</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#beneficios">Beneficios</a>
+        <a href="#testimonios">Testimonios</a>
+        <a href="#precios">Precios</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <a href="#contacto" class="btn btn-primary">Solicitar demo</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="badge">🚀 Convierte más leads sin aumentar tu equipo</span>
+          <h1>La landing que vende tu producto por ti.</h1>
+          <p>
+            Impulsa tus campañas con una propuesta clara, pruebas sociales, diseño moderno y un mensaje pensado para convertir visitas en oportunidades reales.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#contacto" class="btn btn-primary">Empezar ahora</a>
+            <a href="#beneficios" class="btn btn-secondary">Ver beneficios</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <strong>+42%</strong>
+              <span>más conversiones</span>
+            </div>
+            <div class="stat">
+              <strong>-28%</strong>
+              <span>menor costo por lead</span>
+            </div>
+            <div class="stat">
+              <strong>24/7</strong>
+              <span>captación automatizada</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="dashboard">
+            <div class="dashboard-top">
+              <div>
+                <strong style="color: var(--white); display:block; font-size:1.1rem;">Resumen de campaña</strong>
+                <span style="color: var(--muted); font-size:0.95rem;">Últimos 30 días</span>
+              </div>
+              <span class="pill">● Activa</span>
+            </div>
+
+            <div class="chart">
+              <svg viewBox="0 0 500 220" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0,180 C40,170 60,120 100,130 C140,140 150,75 200,90 C250,105 255,50 310,58 C360,65 380,18 430,28 C465,35 480,18 500,10" fill="none" stroke="#f0a519" stroke-width="5" stroke-linecap="round"/>
+                <path d="M0,180 C40,170 60,120 100,130 C140,140 150,75 200,90 C250,105 255,50 310,58 C360,65 380,18 430,28 C465,35 480,18 500,10 L500,220 L0,220 Z" fill="rgba(240,165,25,0.18)"/>
+              </svg>
+            </div>
+
+            <div class="mini-cards">
+              <div class="mini-card">
+                <strong>1,284</strong>
+                <span>Leads generados</span>
+              </div>
+              <div class="mini-card">
+                <strong>18.7%</strong>
+                <span>Tasa de conversión</span>
+              </div>
+              <div class="mini-card">
+                <strong>S/ 7.80</strong>
+                <span>Costo por lead</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="logos">
+          <div class="logo-item">NOVA</div>
+          <div class="logo-item">ALTURA</div>
+          <div class="logo-item">PULSE</div>
+          <div class="logo-item">KORA</div>
+          <div class="logo-item">LUMA</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="beneficios">
+      <div class="container">
+        <div class="section-head">
+          <h2>Todo lo que necesitas para vender mejor</h2>
+          <p>
+            Una estructura de marketing enfocada en claridad, confianza y acción. Diseñada para productos digitales, servicios y campañas de captación.
+          </p>
+        </div>
+
+        <div class="features">
+          <article class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Mensaje claro desde el primer segundo</h3>
+            <p>Comunica el valor principal de tu oferta con un titular fuerte, subtítulo estratégico y llamadas a la acción visibles.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">📈</div>
+            <h3>Orientada a conversión</h3>
+            <p>Distribución visual pensada para aumentar clics, solicitudes de demo, registros y generación de leads de calidad.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">🤝</div>
+            <h3>Prueba social y confianza</h3>
+            <p>Integra testimonios, métricas, logos de clientes y secciones de valor para reducir fricción en la decisión.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonios">
+      <div class="container">
+        <div class="section-head">
+          <h2>Resultados que sí se sienten en negocio</h2>
+          <p>
+            Equipos de marketing y ventas usan esta estructura para captar mejor, explicar más rápido y cerrar con menos fricción.
+          </p>
+        </div>
+
+        <div class="testimonials">
+          <article class="testimonial">
+            <p>“Pasamos de una página genérica a una landing enfocada en valor. En pocas semanas mejoramos el ratio de contacto de forma notable.”</p>
+            <strong style="color: var(--white);">Camila Rojas</strong><br>
+            <small>Growth Lead · Nova Studio</small>
+          </article>
+
+          <article class="testimonial">
+            <p>“Lo mejor fue la claridad del mensaje. Los usuarios entendían de inmediato lo que ofrecíamos y aumentaron las demos agendadas.”</p>
+            <strong style="color: var(--white);">Luis Mendoza</strong><br>
+            <small>Head of Sales · Pulse Cloud</small>
+          </article>
+
+          <article class="testimonial">
+            <p>“La combinación de diseño, estructura y CTA bien ubicados hizo que nuestra campaña rindiera mucho más con el mismo presupuesto.”</p>
+            <strong style="color: var(--white);">Andrea Silva</strong><br>
+            <small>Marketing Manager · Kora Tech</small>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="precios">
+      <div class="container">
+        <div class="section-head">
+          <h2>Planes simples para empezar hoy</h2>
+          <p>
+            Elige la opción que mejor se adapte a tu etapa actual y escala cuando tu captación lo necesite.
+          </p>
+        </div>
+
+        <div class="pricing">
+          <article class="price-card">
+            <h3>Starter</h3>
+            <p style="color: var(--muted);">Para validar una oferta</p>
+            <div class="price">S/ 99 <span>/ mes</span></div>
+            <ul>
+              <li>✓ 1 landing page</li>
+              <li>✓ Formularios de contacto</li>
+              <li>✓ Integración básica</li>
+              <li>✓ Hosting incluido</li>
+            </ul>
+            <a href="#contacto" class="btn btn-secondary" style="width:100%;">Elegir plan</a>
+          </article>
+
+          <article class="price-card popular">
+            <span class="price-tag">Más popular</span>
+            <h3>Growth</h3>
+            <p style="color: var(--muted);">Para campañas activas</p>
+            <div class="price">S/ 249 <span>/ mes</span></div>
+            <ul>
+              <li>✓ 5 landing pages</li>
+              <li>✓ Test A/B</li>
+              <li>✓ Métricas avanzadas</li>
+              <li>✓ Automatización de leads</li>
+            </ul>
+            <a href="#contacto" class="btn btn-primary" style="width:100%;">Elegir plan</a>
+          </article>
+
+          <article class="price-card">
+            <h3>Scale</h3>
+            <p style="color: var(--muted);">Para equipos comerciales</p>
+            <div class="price">S/ 499 <span>/ mes</span></div>
+            <ul>
+              <li>✓ Landing pages ilimitadas</li>
+              <li>✓ Integraciones premium</li>
+              <li>✓ Reportes ejecutivos</li>
+              <li>✓ Soporte prioritario</li>
+            </ul>
+            <a href="#contacto" class="btn btn-secondary" style="width:100%;">Hablar con ventas</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="container">
+        <div class="cta-box">
+          <h2>Haz que tu próxima campaña convierta mejor</h2>
+          <p>
+            Lanza una página moderna, clara y orientada a resultados. Ideal para productos SaaS, servicios, consultorías y campañas de captación.
+          </p>
+          <div class="hero-actions" style="justify-content:center; margin-bottom:0;">
+            <a href="mailto:hola@marketflow.com" class="btn btn-primary">Solicitar asesoría</a>
+            <a href="tel:+51999999999" class="btn btn-secondary">Hablar por teléfono</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <p>© 2026 MarketFlow. Todos los derechos reservados.</p>
+      <p>Diseñado para convertir visitas en clientes.</p>
+    </div>
+  </footer>
+</body>
+</html>
